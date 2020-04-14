@@ -3,35 +3,22 @@ import java.util.Random;
 
 public class MaxIntHeap extends Heap{
 	
-	public static void main(String[] args) throws Exception {
-		int[] x = new int[1000000]; //100, 10000, 1000000
-		for (int i = 0; i < x.length; x[i++] = new Random().nextInt());
-		
-		long startTime = System.nanoTime();
-		Heap h = new MaxIntHeap();
-		for (int i = 0; i < x.length; h.add(x[i++]));
-		long endTime = System.nanoTime();
-		System.out.println("Add time: " + (endTime - startTime));
-		
-		startTime = System.nanoTime();
-		while (!h.isEmpty())
-			h.pop();
-		endTime = System.nanoTime();
-		System.out.println("Pop time: " + (endTime - startTime));
-		
-	}
-	
 	@Override
 	public void add(Object element) {
 		// Add your code here
 		super.add(element);
 	}
+	
 	@Override
 	public Object pop() throws Exception {
 		// Add your code here
 		return super.pop();
 	}
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	
+	@SuppressWarnings({
+		"unchecked",
+		"rawtypes"
+	})
 	@Override
 	protected void percolateUp() {
 		int parent;
@@ -47,7 +34,11 @@ public class MaxIntHeap extends Heap{
 			child = parent;
 		}
 	}
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	
+	@SuppressWarnings({
+		"rawtypes", 
+		"unchecked"
+	})
 	@Override
 	protected void percolateDown(int start) {
 		int parent = start;
@@ -65,5 +56,26 @@ public class MaxIntHeap extends Heap{
 			parent = child;
 			child = 2 * parent + 1;
 		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		int[] x = new int[10000]; //100, 10000, 1000000
+		Random r = new Random();
+		for (int i = 0; i < x.length; x[i++] = r.nextInt());
+		
+		System.out.println("Array length: " + x.length);
+		
+		long startTime, endTime;
+		startTime = System.nanoTime();
+		Heap h = new MaxIntHeap();
+		for (int i = 0; i < x.length; h.add(x[i++]));
+		endTime = System.nanoTime();
+		System.out.println("Add time: " + (endTime - startTime));
+		
+		startTime = System.nanoTime();
+		for (; !h.isEmpty(); h.pop());
+		endTime = System.nanoTime();
+		System.out.println("Pop time: " + (endTime - startTime));
+		
 	}
 }
